@@ -1,0 +1,13 @@
+#sizeBox{
+    width: 200;
+    height: 200;
+    background: black;
+}
+.container-fluid{
+    text-align: center;
+}
+
+a:link{
+    color: white;
+    text-decoration:none;
+}
