@@ -1,6 +1,7 @@
-
 def gv
-pipeline{
+
+
+pipeline {
     agent any
     tools{
         maven 'maven-3.8.5'
@@ -15,14 +16,16 @@ pipeline{
             steps{
 
                 script {
-                    gv = load 'script.groovy'
+                    gv = load "script.groovy"
                 }
             }
         }
+        
         stage("Cleaning Code"){
             steps{
-                echo 'Cleaning code...'
-                sh 'mvn clean'
+                script{
+                    gv.cleanCode()
+                }
             }
         }
 
