@@ -24,7 +24,7 @@ pipeline {
         stage("Cleaning Code"){
             steps{
                 script{
-                    gv.cleanCode()
+                    gv.cleanApp()
                 }
             }
         }
