@@ -14,7 +14,7 @@ def testApp(){
 
 def packageApp(){
     echo 'Packaging Application....'
-    sh 'mvn pacakage'
+    sh 'mvn package'
 }
 def deployApp(){
     echo 'Deploying Application....'
