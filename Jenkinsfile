@@ -1,68 +1,35 @@
-def gv
-
-
 pipeline {
     agent any
-    tools{
+    tools {
         maven 'maven-3.8.5'
     }
-    parameters{
-        choice(name:"", choices:['1.2', '1.3', '1.4','1.5'], description:"")
-        booleanParam(name:'executeTests', defaultValue:'true', description:"" )
-    }
+
     stages{
 
-        stage("init"){
-            steps{
+        stage("Build Jar"){
 
-                script {
-                    gv = load "script.groovy"
-                }
-            }
-        }
+            steps {
 
-        stage("Cleaning Code"){
-            steps{
                 script{
-                    gv.cleanApp()
+                    echo "====++++Building Jar++++===="
+                    sh 'mvn package'
                 }
             }
         }
 
-        
-        stage("Testing Application"){
-             when{
-                    expression{
-                        params.executeTests
-                    }
-                } 
-           
-            steps{
-                    script {
-                        gv.testApp()
-                    }
-                }      
-            
-        }
+        stage("Build Docker Image"){
+            steps {
+                script {
+                    withCredentials([
+                        usernamePassword(credentialsId:'dockerhub', usernameVariable: USER, passwordVariable: PASSWORD)]){
+                            echo "====++++Building Docker Image++++===="
+                            sh 'docker build -t richieoscar/chatty-app:1.0 .'
+                            sh  "echo $PASSWORD | docker login - u $USER --password-stdin"
+                            sh 'docker push richieoscar/chatty-app:1.0 '
 
-        stage("Packaging Application") {
-            steps{
-                     script {
-                        gv.packageApp()
                     }
-
-            }
-        }
-
-        stage("Deploying  Application") {
-            steps{
-                     script {
-                        gv.deployApp()
-                    }
-
+                }
             }
         }
     }
-
-    
 }
