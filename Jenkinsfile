@@ -19,8 +19,13 @@ pipeline{
         stage("Testing Application"){
            
             steps{
-                echo 'testing application....'
-                sh 'mvn test'
+               when{
+                    expression{
+                        param.executeTests
+                        echo 'executing Tests'
+                        sh 'mvn test'
+                    }
+                }  
             }   
             
         }
