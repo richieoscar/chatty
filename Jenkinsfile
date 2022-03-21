@@ -21,7 +21,7 @@ pipeline {
             steps {
                 script {
                     withCredentials([
-                        usernamePassword(credentialsId:'dockerhub', usernameVariable: USER, passwordVariable: PASSWORD)]){
+                        usernamePassword(credentialsId:'dockerhub', usernameVariable: 'USER', passwordVariable: 'PASSWORD')]){
                             echo "====++++Building Docker Image++++===="
                             sh 'docker build -t richieoscar/chatty-app:1.0 .'
                             sh  "echo $PASSWORD | docker login - u $USER --password-stdin"
