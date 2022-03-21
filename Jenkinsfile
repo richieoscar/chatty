@@ -40,6 +40,15 @@ pipeline{
 
             }
         }
+        
+         stage("Deploying Application") {
+            steps{
+
+                echo 'Deploying application......'
+                echo "${params.VERSION}"
+
+            }
+        }
     }
     
     
