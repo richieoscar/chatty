@@ -32,7 +32,8 @@ def buildDockerImage(){
          echo "====++++Building Docker Image++++===="
          sh 'docker build -t richieoscar/chatty-app:1.0 .'
          sh  "echo $PASSWORD | docker login - u $USER --password-stdin"
-         sh 'docker push richieoscar/chatty-app:1.0 '
+         sh 'docker push richieoscar/chatty-app:1.0'
+    }
 }
 
 return this
