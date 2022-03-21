@@ -20,7 +20,7 @@ pipeline {
                 }
             }
         }
-        
+
         stage("Cleaning Code"){
             steps{
                 script{
@@ -31,20 +31,17 @@ pipeline {
 
         
         stage("Testing Application"){
-           
-            steps{
-                when{
+             when{
                     expression{
                         param.executeTests
                     }
                 } 
-
-                steps{
+           
+            steps{
                     script {
                         gv.testApp()
                     }
-                } 
-            }   
+                }      
             
         }
 
