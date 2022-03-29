@@ -16,8 +16,6 @@ pipeline {
             }
         }
 
-        stages{
-
         stage("Test"){
             steps {
                 script {
@@ -29,12 +27,12 @@ pipeline {
 
         stage("Build Jar"){
             when{
-                expression{
+                expression {
                     BRANCH_NAME == 'main'
                 }
             }
             steps {
-                script{
+                script {
                     gv.buildJar()
                 }
             }
@@ -48,12 +46,10 @@ pipeline {
             }
             steps {
                 script {
-                    gv.buildDockerImage()
-
-                    }
+                    gv.buildDockerImage()   
                 }
             }
         
         }
-    }
+    } 
 }
