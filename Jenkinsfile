@@ -7,6 +7,7 @@ pipeline {
     }
 
     stages{
+
         stage("init"){
             steps {
                 script {
@@ -15,7 +16,23 @@ pipeline {
             }
         }
 
+        stages{
+
+        stage("Test"){
+            steps {
+                script {
+                    gv.testApp()
+                     echo "Executing Pipeline on branch $BRANCH_NAME"
+                }
+            }
+        }
+
         stage("Build Jar"){
+            when{
+                expression{
+                    BRANCH_NAME == 'main'
+                }
+            }
             steps {
                 script{
                     gv.buildJar()
@@ -24,11 +41,19 @@ pipeline {
         }
 
         stage("Build Docker Image"){
+             when{
+                expression{
+                    BRANCH_NAME == 'main'
+                }
+            }
             steps {
                 script {
                     gv.buildDockerImage()
+
                     }
                 }
             }
+        
+        }
     }
 }
