@@ -18,9 +18,10 @@ pipeline {
 
         stage("Test"){
             steps {
+                echo "Executing Pipeline on branch $BRANCH_NAME"
                 script {
                     gv.testApp()
-                     echo "Executing Pipeline on branch $BRANCH_NAME"
+                     
                 }
             }
         }
