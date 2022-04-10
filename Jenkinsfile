@@ -15,14 +15,15 @@ pipeline {
                 }
             }
         }
-
-        stage{
-        steps {
-              script {
+        stage("Increment Version"){
+            steps {
+                script {
                     gv.incrementVersion()
-              }
+                }
+            }
         }
-        }
+
+
 
         stage("Test"){
             steps {
