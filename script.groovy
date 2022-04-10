@@ -43,7 +43,7 @@ def commitVersionIncrementToGit(){
                 sh 'git status'
                 sh 'git branch'
                 sh 'git config --list'
-                sh "git remote set-url origin https://${USER}:${PASSWORD}@github.com/richieoscar/chatty.git "
+                sh "git remote set-url origin https://${USER}:${PASSWORD}@github.com/richieoscar/chatty.git"
                 sh  'git add .'
                 sh 'git commit -m "ci: version change"'
                 sh 'git push origin main'
