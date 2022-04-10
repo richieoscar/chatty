@@ -38,8 +38,8 @@ def commitVersionIncrementToGit(){
             usernamePassword(credentialsId:'jenkins-id', usernameVariable: 'USER', passwordVariable: 'PASSWORD')])
             {
                 echo "====++++Commiting To Remote Repository++++===="
-                sh 'git config --global user.email "oscaranyiam94@gmail.com"'
-                sh 'git config --global user.username "richieoscar"'
+                sh 'git config --global user.email "jenkins@gmail.com"'
+                sh 'git config --global user.username "jenkins"'
                 sh 'git status'
                 sh 'git branch'
                 sh 'git config --list'
