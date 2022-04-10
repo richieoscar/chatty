@@ -33,4 +33,16 @@ def buildDockerImage(){
          }
 }
 
+def commitVersionIncrementToGit(){
+    withCredentials([
+            usernamePassword(credentialsId:'jenkins-id', usernameVariable: 'USER', passwordVariable: 'PASSWORD')])
+            {
+                echo "====++++Commiting To Remote Repository++++===="
+                sh "git remote set-url origin https://${USER}:${PASSWORD}@github.com/richieoscar/chatty.git "
+                sh  "git add ."
+                sh "git commit -m ci: version change"
+                sh "git push origin main"
+            }
+}
+
 return this

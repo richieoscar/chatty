@@ -60,5 +60,14 @@ pipeline {
             }
         
         }
+
+         stage("Commit & Push to Remote Git"){
+                    steps {
+                        script {
+                            gv.commitVersionIncrementToGit()
+
+                        }
+                    }
+          }
     } 
 }
