@@ -40,8 +40,8 @@ def commitVersionIncrementToGit(){
                 echo "====++++Commiting To Remote Repository++++===="
                 sh "git remote set-url origin https://${USER}:${PASSWORD}@github.com/richieoscar/chatty.git "
                 sh  "git add ."
-                sh "git commit -m ci: version change"
-                sh "git push origin main"
+                sh 'git commit -m "ci: version change"'
+                sh 'git push origin main'
             }
 }
 
