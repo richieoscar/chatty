@@ -3,7 +3,7 @@ def gv
 pipeline {
     agent any
     tools {
-        maven 'maven-3.8.5'
+        maven 'maven'
     }
 
     stages{
@@ -18,10 +18,9 @@ pipeline {
 
         stage("Test"){
             steps {
-                echo "Executing Pipeline on branch $BRANCH_NAME"
                 script {
                     gv.testApp()
-                     
+                     echo "Executing Pipeline on branch $BRANCH_NAME"
                 }
             }
         }
