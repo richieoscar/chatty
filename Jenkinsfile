@@ -16,6 +16,14 @@ pipeline {
             }
         }
 
+        stage{
+        steps {
+              script {
+                    gv.incrementVersion()
+              }
+        }
+        }
+
         stage("Test"){
             steps {
                 script {

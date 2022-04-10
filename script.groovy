@@ -1,10 +1,10 @@
-def buildApp(){
-    echo 'building application....'
-}
 
-def cleanApp(){
-    echo 'Cleaning code'
-    sh 'mvn clean'
+def incrementVersion(){
+    echo 'incrementing Version'
+    sh 'mvn build-helper:parse-version versions:set -DnewVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.incrementalVersion} versions:commit'
+    def matcher = readFile('pom.xml') =~ '<version>(.+)</version>'
+    def version = matcher[0][1]
+    env.IMAGE_NAME = "$version-$BUILD_NUMBER"
 }
 
 def testApp(){
@@ -12,10 +12,6 @@ def testApp(){
     sh 'mvn test'
 }
 
-def packageApp(){
-    echo 'Packaging Application....'
-    sh 'mvn pacakage'
-}
 def deployApp(){
     echo 'Deploying Application....'
     echo "Deploying version ${params.VERSION}"
@@ -23,7 +19,7 @@ def deployApp(){
 
 def buildJar(){
       echo "====++++Building Jar++++===="
-      sh 'mvn package'
+      sh 'mvn clean package'
 }
 
 def buildDockerImage(){
@@ -31,9 +27,9 @@ def buildDockerImage(){
          usernamePassword(credentialsId:'dockerhub', usernameVariable: 'USER', passwordVariable: 'PASSWORD')])
          {
          echo "====++++Building Docker Image++++===="
-         sh 'docker build -t richieoscar/chatty-app:1.0 .'
+         sh "docker build -t richieoscar/chatty-app:${IMAGE_NAME} ."
          sh  "echo $PASSWORD | docker login -u $USER --password-stdin"
-         sh 'docker push richieoscar/chatty-app:1.0'
+         sh "docker push richieoscar/chatty-app:${IMAGE_NAME}"
          }
 }
 
