@@ -38,6 +38,11 @@ def commitVersionIncrementToGit(){
             usernamePassword(credentialsId:'jenkins-id', usernameVariable: 'USER', passwordVariable: 'PASSWORD')])
             {
                 echo "====++++Commiting To Remote Repository++++===="
+                sh 'git config user.email "oscaranyiam94@gmail.com'
+                sh 'git config user.username "richieoscar'
+                sh 'git status'
+                sh 'git branch'
+                sh 'git config --list'
                 sh "git remote set-url origin https://${USER}:${PASSWORD}@github.com/richieoscar/chatty.git "
                 sh  'git add .'
                 sh 'git commit -m "ci: version change"'
