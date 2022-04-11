@@ -61,6 +61,15 @@ pipeline {
         
         }
 
+         stage("Deploy to AWS EC2 Server"){
+                            steps {
+                                script {
+                                    gv.deployToAWSEc2()
+
+                                }
+                            }
+                  }
+
          stage("Commit & Push to Remote Git"){
                     steps {
                         script {

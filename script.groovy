@@ -48,4 +48,11 @@ def commitVersionIncrementToGit(){
             }
 }
 
+def deployToAWSEc2(){
+    def dockerCmd = 'docker run -d --name chatty -p 8080:8080 richieoscar/chatty-app:0.0.1-15'
+    sshagent(['ec2-server']) {
+       sh 'ssh -o StrictHostKeyCheckin=no ec2-user@54.227.19.158 ${dockerCmd}'
+    }
+}
+
 return this
